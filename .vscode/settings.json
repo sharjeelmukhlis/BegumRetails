@@ -1,0 +1,13 @@
+{
+  "files.exclude": {
+    "**/ui-ux-pro-max-skill": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/ui-ux-pro-max-skill": true
+  },
+  "typescript.tsserver.watchOptions": {
+    "excludeDirectories": ["**/node_modules", "**/ui-ux-pro-max-skill"]
+  }
+}

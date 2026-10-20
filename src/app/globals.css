@@ -1,0 +1,234 @@
+@import "tailwindcss";
+
+@keyframes scrollDown {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+@keyframes heroDrift0 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-12px,-16px); } }
+@keyframes heroDrift1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(10px,-14px); } }
+@keyframes heroDrift2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-8px,12px); } }
+
+/* ── Preloader curtain ───────────────────────────────── */
+@keyframes curtainUp {
+  0%   { transform: scaleY(1); }
+  100% { transform: scaleY(0); }
+}
+@keyframes curtainRevealText {
+  0%   { opacity: 1; transform: translateY(0); }
+  70%  { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-30px); }
+}
+@keyframes preloaderLine {
+  0%   { transform: scaleX(0); }
+  50%  { transform: scaleX(1); }
+  100% { transform: scaleX(1); }
+}
+
+/* ── Film grain overlay ─────────────────────────────── */
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+/* ── Smooth reveal wipes ────────────────────────────── */
+@keyframes revealUp {
+  0%   { clip-path: inset(100% 0 0 0); opacity: 0; }
+  100% { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+@keyframes fadeSlideUp {
+  0%   { opacity: 0; transform: translateY(60px); filter: blur(4px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* ── Magnetic button pulse ──────────────────────────── */
+@keyframes magneticPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(233,202,159,0.3); }
+  50%     { box-shadow: 0 0 0 8px rgba(233,202,159,0); }
+}
+
+/* ── Horizontal marquee ─────────────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Gold luxury text shimmer ──────────────────────── */
+@keyframes goldShine {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.text-gold-shimmer {
+  background: linear-gradient(110deg, #EDD5B0 0%, #FFFFFF 35%, #EDD5B0 50%, #C89D66 75%, #EDD5B0 100%);
+  background-size: 250% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: goldShine 7s ease-in-out infinite;
+}
+
+@theme inline {
+  --color-emerald-50: #EAF3EE;
+  --color-emerald-100: #CFE4D8;
+  --color-emerald-200: #9FC9B2;
+  --color-emerald-300: #6FAD8C;
+  --color-emerald-400: #3F9166;
+  --color-emerald-500: #1B6B45;
+  --color-emerald-600: #0E4A30;
+  --color-emerald-700: #093825;
+  --color-emerald-800: #062319;
+  --color-emerald-900: #03140E;
+  --color-emerald-950: #020D09;
+  --color-sand-50: #FCF8F2;
+  --color-sand-100: #F7EEDF;
+  --color-sand-200: #F1E2C8;
+  --color-sand-300: #EDD5B0;
+  --color-sand-400: #E9CA9F;
+  --color-sand-500: #DCB37D;
+  --color-sand-600: #C9975A;
+  --color-sand-700: #A8763F;
+  --color-sand-800: #7D5730;
+  --color-sand-900: #4F3720;
+  --color-heritage-400: #8C2F42;
+  --color-heritage-500: #6B1A2A;
+  --color-heritage-600: #4E1220;
+  --color-ivory: #FAF6EF;
+  --color-charcoal: #14201B;
+  --color-grey: #8C8478;
+  --font-display: var(--font-figerly);
+  --font-sans: var(--font-body);
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+::selection {
+  background: var(--color-emerald-800);
+  color: var(--color-ivory);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .parallax-scene {
+    perspective: 1200px;
+    transform-style: preserve-3d;
+  }
+
+  /* Film grain texture overlay for cinematic depth */
+  .film-grain::after {
+    content: "";
+    position: fixed;
+    inset: -200%;
+    width: 400%;
+    height: 400%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    animation: grain 8s steps(10) infinite;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+  }
+
+  /* Scroll-triggered reveal classes (GSAP adds .is-revealed) */
+  .reveal-up {
+    clip-path: inset(100% 0 0 0);
+    opacity: 0;
+    transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease;
+  }
+  .reveal-up.is-revealed {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+
+  .reveal-fade {
+    opacity: 0;
+    transform: translateY(48px);
+    filter: blur(3px);
+    transition: opacity 0.8s ease, transform 1s cubic-bezier(0.19, 1, 0.22, 1), filter 0.8s ease;
+  }
+  .reveal-fade.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  /* Staggered children reveal */
+  .stagger-reveal > * {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  .stagger-reveal.is-revealed > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .stagger-reveal.is-revealed > *:nth-child(1) { transition-delay: 0ms; }
+  .stagger-reveal.is-revealed > *:nth-child(2) { transition-delay: 80ms; }
+  .stagger-reveal.is-revealed > *:nth-child(3) { transition-delay: 160ms; }
+  .stagger-reveal.is-revealed > *:nth-child(4) { transition-delay: 240ms; }
+  .stagger-reveal.is-revealed > *:nth-child(5) { transition-delay: 320ms; }
+  .stagger-reveal.is-revealed > *:nth-child(6) { transition-delay: 400ms; }
+
+  /* Magnetic button hover effect */
+  .magnetic-btn {
+    transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  .magnetic-btn:hover {
+    animation: magneticPulse 2s ease infinite;
+  }
+
+  /* Horizontal text marquee */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  /* Image reveal with scale */
+  .img-reveal {
+    overflow: hidden;
+  }
+  .img-reveal > img,
+  .img-reveal > [data-nextjs-image] {
+    transform: scale(1.15);
+    transition: transform 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  .img-reveal.is-revealed > img,
+  .img-reveal.is-revealed > [data-nextjs-image] {
+    transform: scale(1);
+  }
+
+  /* Smooth section divider line animation */
+  .section-line {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1.6s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+  .section-line.is-revealed {
+    transform: scaleX(1);
+  }
+}
